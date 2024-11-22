@@ -1,0 +1,2 @@
+# 35-SOPKATHON-SERVER-IOS3
+35기 서버 해커톤 ios3조
