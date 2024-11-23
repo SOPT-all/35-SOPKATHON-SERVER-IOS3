@@ -25,8 +25,7 @@ public class User {
     @Column(name = "over_drink_cnt", nullable = false)
     private int overDrinkCnt;
 
-    public User(Long id, String name, int limitDrinkCnt, int drinkCnt, int overDrinkCnt) {
-        this.id = id;
+    public User( String name, int limitDrinkCnt, int drinkCnt, int overDrinkCnt) {
         this.name = name;
         this.limitDrinkCnt = limitDrinkCnt;
         this.drinkCnt = drinkCnt;
