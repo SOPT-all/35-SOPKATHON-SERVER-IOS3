@@ -23,7 +23,7 @@ public class UserController {
             @RequestHeader("userId") final Long userId
     ) {
 
-        return ResponseEntity.ok(userService.fetchDrinkStatus());
+        return ResponseEntity.ok(userService.fetchDrinkStatus(userId));
     }
 
 }
