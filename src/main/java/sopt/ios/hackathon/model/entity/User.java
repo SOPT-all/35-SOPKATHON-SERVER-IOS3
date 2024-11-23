@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +22,14 @@ public class UserEntity {
     @Column(name = "name", nullable = false)
     private int DrinkCnt;
 
-    public UserEntity(Long id, String name, double drinkLimit, int drinkCnt) {
+    public User(Long id, String name, double drinkLimit, int drinkCnt) {
         this.id = id;
         this.name = name;
         DrinkLimit = drinkLimit;
         DrinkCnt = drinkCnt;
     }
 
-    public UserEntity(){
+    public User(){
 
     }
 

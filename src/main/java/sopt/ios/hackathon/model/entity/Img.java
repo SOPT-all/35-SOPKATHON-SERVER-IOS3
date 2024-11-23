@@ -1,4 +1,4 @@
-package sopt.ios.hackathon.model;
+package sopt.ios.hackathon.model.entity;
 
 import jakarta.persistence.*;
 
