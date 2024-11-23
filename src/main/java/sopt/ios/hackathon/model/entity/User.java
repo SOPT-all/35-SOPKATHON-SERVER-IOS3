@@ -54,6 +54,10 @@ public class User {
     public int getOverDrinkCnt() {
         return overDrinkCnt;
     }
+
+    public void setDrinkCnt(int drinkCnt){
+        this.drinkCnt= drinkCnt;
+    }
 }
 
 

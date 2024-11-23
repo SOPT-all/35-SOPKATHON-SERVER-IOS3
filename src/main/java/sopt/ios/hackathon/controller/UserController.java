@@ -3,6 +3,7 @@ package sopt.ios.hackathon.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,14 @@ public class UserController {
     public ResponseEntity<GetDrinkResponse> getDrinkStatus(
             @RequestHeader("userId") final Long userId
     ) {
-
         return ResponseEntity.ok(userService.fetchDrinkStatus(userId));
+    }
+
+    @PatchMapping("/drink")
+    public ResponseEntity<GetDrinkResponse> patchDrinkStatus(
+            @RequestHeader("userId") final Long userId
+    ) {
+        return ResponseEntity.ok(userService.patchDrinkStatus(userId));
     }
 
 }

@@ -1,5 +1,6 @@
 package sopt.ios.hackathon.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import sopt.ios.hackathon.Repository.UserRepository;
 import sopt.ios.hackathon.global.exception.BusinessException;
@@ -15,8 +16,17 @@ public class UserService {
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    public GetDrinkResponse fetchDrinkStatus(Long userId){
+
+    @Transactional(readOnly = true)
+    public GetDrinkResponse fetchDrinkStatus(final Long userId){
         User user = userRepository.findById(userId).orElseThrow(()-> new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR));
+        return new GetDrinkResponse(user.getId(),user.getDrinkCnt(),calculateExceed(user.getDrinkCnt(),user.getLimitDrinkCnt(),user.getOverDrinkCnt()),user.getOverDrinkCnt());
+    }
+
+    @Transactional
+    public GetDrinkResponse patchDrinkStatus(final Long userId){
+        User user = userRepository.findById(userId).orElseThrow(()-> new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR));
+        user.setDrinkCnt(user.getDrinkCnt()+1);
         return new GetDrinkResponse(user.getId(),user.getDrinkCnt(),calculateExceed(user.getDrinkCnt(),user.getLimitDrinkCnt(),user.getOverDrinkCnt()),user.getOverDrinkCnt());
     }
 
