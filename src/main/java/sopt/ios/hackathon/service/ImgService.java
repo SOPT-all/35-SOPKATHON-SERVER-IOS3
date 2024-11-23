@@ -36,7 +36,7 @@ public class ImgService {
         long cnt = imgRepository.count();
 
         Random rd = new Random();
-        Long randId = (long) (rd.nextInt((int) +cnt) + 1);
+        Long randId = (long) (rd.nextInt((int)cnt) + 1);
 
         //System.out.println(randId);
 
