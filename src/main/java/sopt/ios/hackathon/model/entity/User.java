@@ -17,16 +17,20 @@ public class User {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "drink_limit", nullable = false)
-    private double DrinkLimit;
-    @Column(name = "name", nullable = false)
-    private int DrinkCnt;
+    @Column(name = "limit_drink_cnt", nullable = false)
+    private int limitDrinkCnt;
+    @Column(name = "drink_cnt", nullable = false)
+    private int drinkCnt;
 
-    public User(Long id, String name, double drinkLimit, int drinkCnt) {
+    @Column(name = "over_drink_cnt", nullable = false)
+    private int overDrinkCnt;
+
+    public User(Long id, String name, int limitDrinkCnt, int drinkCnt, int overDrinkCnt) {
         this.id = id;
         this.name = name;
-        DrinkLimit = drinkLimit;
-        DrinkCnt = drinkCnt;
+        this.limitDrinkCnt = limitDrinkCnt;
+        this.drinkCnt = drinkCnt;
+        this.overDrinkCnt = overDrinkCnt;
     }
 
     public User(){
@@ -41,11 +45,14 @@ public class User {
         return name;
     }
 
-    public double getDrinkLimit() {
-        return DrinkLimit;
+    public int getLimitDrinkCnt() {
+        return limitDrinkCnt;
     }
     public int getDrinkCnt() {
-        return DrinkCnt;
+        return drinkCnt;
+    }
+    public int getOverDrinkCnt() {
+        return overDrinkCnt;
     }
 }
 
