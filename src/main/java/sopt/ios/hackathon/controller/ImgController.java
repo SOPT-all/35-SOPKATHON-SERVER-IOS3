@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import sopt.ios.hackathon.model.dto.GetRandomResponse;
 import sopt.ios.hackathon.service.ImgService;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ImgController {
         this.imgService = imgService;
     }
 
-    @PostMapping("/img/upload")
+    @PostMapping("/v1/upload")
     public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file) {
         try {
             String fileUrl = imgService.saveImg(file, serverUrl);
@@ -30,5 +31,11 @@ public class ImgController {
         } catch (IOException e) {
             return ResponseEntity.status(500).body("이미지 업로드 실패: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/v1/random")
+    public ResponseEntity<GetRandomResponse> getRandomImg() {
+        GetRandomResponse response = imgService.getRandomIg();
+        return ResponseEntity.ok(response);
     }
 }

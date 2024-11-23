@@ -6,10 +6,9 @@ import sopt.ios.hackathon.model.dto.GetRandomResponse;
 import sopt.ios.hackathon.model.entity.Img;
 import sopt.ios.hackathon.repository.ImgRepository;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,5 +30,20 @@ public class ImgService {
         imgRepository.save(img);
 
         return serverUrl + fileUrl;
+    }
+
+    public GetRandomResponse getRandomIg() {
+        long cnt = imgRepository.count();
+
+        Random rd = new Random();
+        Long randId = (long) (rd.nextInt((int) +cnt + 1));
+
+        //System.out.println(randId);
+
+        Optional<Img> img = imgRepository.findById(randId);
+
+        Img randImg = img.get();
+
+        return new GetRandomResponse(randImg.getId(), randImg.getImgUrl());
     }
 }
