@@ -36,43 +36,12 @@ public class GlobalExceptionHandler {
                 .body(ResponseDto.fail(ErrorType.INVALID_FIELD_ERROR, e.getBindingResult()));
     }
 
-    // 필수 요청 파라미터(@RequestParam)가 요청에서 누락됐을 시 예외 처리
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<ResponseDto<?>> handleMissingServletRequestParameterException(
-            MissingServletRequestParameterException e
-    ) {
-        return ResponseEntity
-                .status(ErrorType.NO_REQUEST_PARAMETER_ERROR.getHttpStatus())
-                .body(ResponseDto.fail(ErrorType.NO_REQUEST_PARAMETER_ERROR, e.getParameterName()));
-    }
-
     // 필수 요청 헤더(@RequestHeader)가 요청에서 누락됐을 시 예외 처리
     @ExceptionHandler(MissingRequestHeaderException.class)
     public ResponseEntity<ResponseDto<?>> handleMissingRequestHeaderException(MissingRequestHeaderException e) {
         return ResponseEntity
                 .status(ErrorType.NO_REQUEST_HEADER_ERROR.getHttpStatus())
                 .body(ResponseDto.fail(ErrorType.NO_REQUEST_HEADER_ERROR, e.getHeaderName()));
-    }
-
-    // 컨트롤러 메서드에 전달된 값의 타입 변환 시 예외 처리
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ResponseDto<?>> handleTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        String paramName = e.getParameter().getParameterName();
-        String errorDetail = e.getRequiredType() != null
-                ? String.format("'%s'은(는) %s 타입이어야 합니다.", paramName, e.getRequiredType().getSimpleName())
-                : String.format("'%s'에 대한 요청 타입이 잘못되었습니다.", paramName);
-
-        return ResponseEntity
-                .status(ErrorType.TYPE_MISMATCH_ERROR.getHttpStatus())
-                .body(ResponseDto.fail(ErrorType.TYPE_MISMATCH_ERROR, errorDetail));
-    }
-
-    // 잘못된 Request Body로 인해 발생하는 예외 처리
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ResponseDto<?>> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        return ResponseEntity
-                .status(ErrorType.INVALID_REQUEST_BODY_ERROR.getHttpStatus())
-                .body(ResponseDto.fail(ErrorType.INVALID_REQUEST_BODY_ERROR));
     }
 
     // 데이터 무결성 위반 시 예외 처리
