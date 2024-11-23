@@ -21,13 +21,6 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    public ResponseEntity<ResponseDto<?>> handleConstraintViolationException(ConstraintViolationException e) {
-//        return ResponseEntity
-//                .status(ErrorType.INVALID_PATH_ERROR.getHttpStatus())
-//                .body(ResponseDto.fail(ErrorType.INVALID_PATH_ERROR, e.getConstraintViolations()));
-//    }
-
     // @Valid 유효성 검사 시 예외 처리
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDto<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -44,13 +37,6 @@ public class GlobalExceptionHandler {
                 .body(ResponseDto.fail(ErrorType.NO_REQUEST_HEADER_ERROR, e.getHeaderName()));
     }
 
-    // 데이터 무결성 위반 시 예외 처리
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ResponseDto<?>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        return ResponseEntity
-                .status(ErrorType.DATA_INTEGRITY_VIOLATION_ERROR.getHttpStatus())
-                .body(ResponseDto.fail(ErrorType.DATA_INTEGRITY_VIOLATION_ERROR));
-    }
 
     // 비즈니스 로직에서 발생하는 예외 처리
     @ExceptionHandler(BusinessException.class)
@@ -68,5 +54,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus())
                 .body(ResponseDto.fail(ErrorType.INTERNAL_SERVER_ERROR, e.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseDto<?>> InvalidRangeException(Exception e) {
+        logger.error(e.getMessage());
+
+        return ResponseEntity
+                .status(ErrorType.INVALID_RANGE_ERROR.getHttpStatus())
+                .body(ResponseDto.fail(ErrorType.INVALID_RANGE_ERROR, e.getMessage()));
     }
 }
