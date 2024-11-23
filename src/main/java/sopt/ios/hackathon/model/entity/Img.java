@@ -21,11 +21,19 @@ public class Img {
         this.imgUrl = imgUrl;
     }
 
+    public Img(final String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public Long getId() {
         return id;
     }
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
