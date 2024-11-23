@@ -1,7 +1,7 @@
 package sopt.ios.hackathon.model.dto;
 
 public record GetDrinkResponse(
-        Long userId,
+        String userId,
         int drinkCnt,
         boolean isExceed,
         int limitDrinkCnt

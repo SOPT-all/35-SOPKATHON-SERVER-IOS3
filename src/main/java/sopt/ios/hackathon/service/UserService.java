@@ -21,7 +21,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public GetDrinkResponse fetchDrinkStatus(final Long userId){
         User user = userRepository.findById(userId).orElseThrow(()-> new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR));
-        return new GetDrinkResponse(user.getId(),user.getDrinkCnt(),calculateExceed(user.getDrinkCnt(),user.getLimitDrinkCnt(),user.getOverDrinkCnt()),user.getLimitDrinkCnt());
+        return new GetDrinkResponse(user.getId().toString(),user.getDrinkCnt(),calculateExceed(user.getDrinkCnt(),user.getLimitDrinkCnt(),user.getOverDrinkCnt()),user.getLimitDrinkCnt());
     }
 
     @Transactional
@@ -34,7 +34,8 @@ public class UserService {
         if(user.getOverDrinkCnt()>0&&user.getDrinkCnt()>user.getLimitDrinkCnt()+8*user.getOverDrinkCnt()){
             user.setOverDrinkCnt(user.getOverDrinkCnt()+1);
         }// 주량이 넘었고 추가로 마셨을 때 ( 1병 단위로 )
-        return new GetDrinkResponse(user.getId(),user.getDrinkCnt(),calculateExceed(user.getDrinkCnt(),user.getLimitDrinkCnt(),user.getOverDrinkCnt()),user.getLimitDrinkCnt());
+
+        return new GetDrinkResponse(user.getId().toString(),user.getDrinkCnt(),calculateExceed(user.getDrinkCnt(),user.getLimitDrinkCnt(),user.getOverDrinkCnt()),user.getLimitDrinkCnt());
     }
 
     public PostUserResponse createUser(String name, double drinkLimit){
@@ -43,7 +44,7 @@ public class UserService {
             throw new BusinessException(ErrorType.INVALID_RANGE_ERROR);
         }
        User user =  userRepository.save(new User(name, (int) (drinkLimit/0.5*4),0,0));
-        return new PostUserResponse(user.getId());
+        return new PostUserResponse(user.getId().toString());
         // 0.5로 떨어지지 않을 때
     }
 
