@@ -2,6 +2,7 @@ package sopt.ios.hackathon.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,6 +32,13 @@ public class UserController {
             @RequestHeader("userId") final Long userId
     ) {
         return ResponseEntity.ok(userService.patchDrinkStatus(userId));
+    }
+
+    @DeleteMapping()
+    public void  deleteUser(
+            @RequestHeader("userId") final Long userId
+    ) {
+       userService.removeUser(userId);
     }
 
 }

@@ -40,4 +40,9 @@ public class UserService {
         return drinkCnt >= limitDrinkCnt+8*overDrinkCnt;
     }
 
+    public void removeUser(final Long userId){
+        User user = userRepository.findById(userId).orElseThrow(()-> new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR));
+        userRepository.delete(user);
+    }
+
 }
