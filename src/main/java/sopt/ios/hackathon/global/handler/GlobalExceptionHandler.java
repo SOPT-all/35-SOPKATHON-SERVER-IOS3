@@ -1,13 +1,17 @@
 package sopt.ios.hackathon.global.handler;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import sopt.ios.hackathon.global.dto.ResponseDto;
 import sopt.ios.hackathon.global.exception.BusinessException;
 import sopt.ios.hackathon.global.exception.ErrorType;
@@ -31,7 +35,6 @@ public class GlobalExceptionHandler {
                 .status(ErrorType.INVALID_FIELD_ERROR.getHttpStatus())
                 .body(ResponseDto.fail(ErrorType.INVALID_FIELD_ERROR, e.getBindingResult()));
     }
-
 
     // 필수 요청 헤더(@RequestHeader)가 요청에서 누락됐을 시 예외 처리
     @ExceptionHandler(MissingRequestHeaderException.class)
