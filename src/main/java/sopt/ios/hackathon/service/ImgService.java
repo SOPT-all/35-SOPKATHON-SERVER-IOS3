@@ -2,11 +2,15 @@ package sopt.ios.hackathon.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import sopt.ios.hackathon.model.dto.GetRandomResponse;
 import sopt.ios.hackathon.model.entity.Img;
 import sopt.ios.hackathon.repository.ImgRepository;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class ImgService {
